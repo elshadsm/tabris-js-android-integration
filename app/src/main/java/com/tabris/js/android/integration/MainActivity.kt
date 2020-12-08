@@ -1,12 +1,8 @@
 package com.tabris.js.android.integration
 
-import android.Manifest
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.eclipsesource.tabris.android.TabrisFragment
 import com.eclipsesource.tabris.android.boot.BootJsLoader
 import com.eclipsesource.tabris.android.boot.BootJsResponse
@@ -21,49 +17,15 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
-  private val permissionRequestCode = 1
-  private val permissions =
-      arrayOf(Manifest.permission.ACCESS_NETWORK_STATE, Manifest.permission.INTERNET)
   private val projectPath = "http://192.168.1.104:8080"
 //    Use the path below for the production app.
-//    private val projectPath = "file:///android_asset/project"
+//    private val projectPath = "file:///android_asset/tabris-js-app"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     findViewById<Button>(R.id.button).setOnClickListener {
-      checkPermissionsAndLaunch()
-    }
-  }
-
-  override fun onRequestPermissionsResult(
-      requestCode: Int,
-      permissions: Array<String>,
-      grantResults: IntArray) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    if (requestCode == permissionRequestCode) {
-      if (grantResults.isNotEmpty() &&
-          grantResults[0] == PackageManager.PERMISSION_GRANTED &&
-          grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-        launch()
-      } else {
-        showError("ACCESS_NETWORK_STATE and INTERNET permissions are not granted")
-      }
-    }
-  }
-
-  private fun checkPermissionsAndLaunch() {
-    val granted = permissions.all {
-      ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
-    }
-    if (granted) {
       launch()
-    } else {
-      ActivityCompat.requestPermissions(
-          this,
-          permissions,
-          permissionRequestCode
-      )
     }
   }
 
