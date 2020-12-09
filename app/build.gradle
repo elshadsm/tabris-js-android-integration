@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-
     implementation 'com.eclipsesource.tabris.android:tabris:3.7.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
